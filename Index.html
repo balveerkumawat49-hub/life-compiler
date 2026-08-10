@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#f7f8fc">
+
+    <meta name="description"
+          content="Life Compiler - Build your better day">
+
+    <meta name="mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="default">
+
+    <meta name="apple-mobile-web-app-title"
+          content="Life Compiler">
+
+    <title>Life Compiler</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <link rel="manifest"
+          href="manifest.json">
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ================= HOME ================= -->
+
+    <section id="homeScreen"
+             class="screen">
+
+        <div class="hero">
+
+            <div class="logo">
+                LC
+            </div>
+
+            <h1>
+                Life Compiler
+            </h1>
+
+            <p>
+                Build your better day.
+            </p>
+
+            <button class="primary-btn"
+                    onclick="openSetup()">
+
+                Start New Session →
+
+            </button>
+
+        </div>
+
+
+        <div class="menu">
+
+            <button class="menu-card"
+                    onclick="openPerformance()">
+
+                <span>📊</span>
+
+                <div>
+
+                    <h3>
+                        Performance
+                    </h3>
+
+                    <p>
+                        Check your progress
+                    </p>
+
+                </div>
+
+            </button>
+
+
+            <button class="menu-card"
+                    onclick="openHistory()">
+
+                <span>📜</span>
+
+                <div>
+
+                    <h3>
+                        History
+                    </h3>
+
+                    <p>
+                        View previous sessions
+                    </p>
+
+                </div>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SETUP ================= -->
+
+    <section id="setupScreen"
+             class="screen hidden">
+
+        <div class="top-bar">
+
+            <button class="back-btn"
+                    onclick="goHome()">
+
+                ←
+
+            </button>
+
+            <h2>
+                New Session
+            </h2>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <h3>
+                Let's build your session.
+            </h3>
+
+            <p class="subtitle">
+                Tell Life Compiler what you want
+                to accomplish.
+            </p>
+
+
+            <label>
+                Your Name
+            </label>
+
+            <input id="userName"
+                   type="text"
+                   placeholder="Enter your name">
+
+
+            <label>
+                What do you need help with?
+            </label>
+
+
+            <div class="options">
+
+                <button class="option"
+                        onclick="selectCategory(1,this)">
+
+                    <span>📚</span>
+                    <b>Study</b>
+
+                </button>
+
+
+                <button class="option"
+                        onclick="selectCategory(2,this)">
+
+                    <span>💻</span>
+                    <b>Coding</b>
+
+                </button>
+
+
+                <button class="option"
+                        onclick="selectCategory(3,this)">
+
+                    <span>📝</span>
+                    <b>Assignment</b>
+
+                </button>
+
+
+                <button class="option"
+                        onclick="selectCategory(4,this)">
+
+                    <span>⏰</span>
+                    <b>Time Management</b>
+
+                </button>
+
+
+                <button class="option"
+                        onclick="selectCategory(5,this)">
+
+                    <span>🎯</span>
+                    <b>Other</b>
+
+                </button>
+
+            </div>
+
+
+            <label>
+                Available Time
+            </label>
+
+
+            <div class="time-input">
+
+                <input id="availableTime"
+                       type="number"
+                       min="1"
+                       placeholder="60">
+
+                <span>
+                    minutes
+                </span>
+
+            </div>
+
+
+            <label>
+                Priority
+            </label>
+
+
+            <div class="priority-options">
+
+                <button onclick="selectPriority(1,this)">
+                    Low
+                </button>
+
+                <button onclick="selectPriority(2,this)">
+                    Medium
+                </button>
+
+                <button onclick="selectPriority(3,this)">
+                    High
+                </button>
+
+            </div>
+
+
+            <p id="setupError"
+               class="error">
+            </p>
+
+
+            <button class="primary-btn"
+                    onclick="createPlan()">
+
+                Create My Plan →
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= PLAN ================= -->
+
+    <section id="planScreen"
+             class="screen hidden">
+
+        <div class="top-bar">
+
+            <button class="back-btn"
+                    onclick="openSetup()">
+
+                ←
+
+            </button>
+
+            <h2>
+                Smart Plan
+            </h2>
+
+        </div>
+
+
+        <div class="plan-header">
+
+            <div class="plan-icon">
+                ⚡
+            </div>
+
+            <h1 id="planTitle">
+                Your Plan
+            </h1>
+
+            <p id="planSubtitle">
+                Personalized for you.
+            </p>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <span>⏱️</span>
+
+                <small>
+                    TIME
+                </small>
+
+                <strong id="planTime">
+                    60 min
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🔥</span>
+
+                <small>
+                    PRIORITY
+                </small>
+
+                <strong id="planPriority">
+                    HIGH
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>📊</span>
+
+                <small>
+                    AVERAGE
+                </small>
+
+                <strong id="planAverage">
+                    New
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div id="adaptiveMessage"
+             class="adaptive-card">
+        </div>
+
+
+        <h3 class="section-title">
+            Time Allocation
+        </h3>
+
+
+        <div class="allocation">
+
+            <div class="allocation-row">
+
+                <span>
+                    📖 Learning
+                </span>
+
+                <strong id="learningTime">
+                    0 min
+                </strong>
+
+            </div>
+
+
+            <div class="allocation-row">
+
+                <span>
+                    💪 Practice
+                </span>
+
+                <strong id="practiceTime">
+                    0 min
+                </strong>
+
+            </div>
+
+
+            <div class="allocation-row">
+
+                <span>
+                    ☕ Break
+                </span>
+
+                <strong id="breakTime">
+                    0 min
+                </strong>
+
+            </div>
+
+
+            <div class="allocation-row">
+
+                <span>
+                    📝 Test
+                </span>
+
+                <strong id="testTime">
+                    0 min
+                </strong>
+
+            </div>
+
+
+            <div class="allocation-row">
+
+                <span>
+                    🔄 Revision
+                </span>
+
+                <strong id="revisionTime">
+                    0 min
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <h3 class="section-title">
+            Action Plan
+        </h3>
+
+
+        <div id="actionPlan"
+             class="action-plan">
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="startSession()">
+
+            Start Session →
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= SESSION ================= -->
+
+    <section id="sessionScreen"
+             class="screen hidden">
+
+        <div class="top-bar">
+
+            <button class="back-btn"
+                    onclick="openPlan()">
+
+                ←
+
+            </button>
+
+            <h2>
+                Session
+            </h2>
+
+        </div>
+
+
+        <div class="session-progress">
+
+            <div class="progress-top">
+
+                <span id="phaseName">
+                    Learning
+                </span>
+
+                <strong id="phaseTime">
+                    00:00
+                </strong>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="current-task">
+
+            <span id="phaseIcon">
+                📖
+            </span>
+
+            <h1 id="currentPhase">
+                Learning
+            </h1>
+
+            <p id="currentInstruction">
+                Learn the main topic.
+            </p>
+
+        </div>
+
+
+        <div class="session-info">
+
+            <div>
+
+                <small>
+                    Phase
+                </small>
+
+                <strong id="phaseNumber">
+                    1 / 5
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    Total Time
+                </small>
+
+                <strong id="sessionTotalTime">
+                    60 min
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <button id="sessionButton"
+                class="primary-btn"
+                onclick="completePhase()">
+
+            Complete Phase →
+
+        </button>
+
+
+        <button class="secondary-btn"
+                onclick="finishSessionEarly()">
+
+            Finish Session
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= RESULT ================= -->
+
+    <section id="resultScreen"
+             class="screen hidden">
+
+        <div class="result-header">
+
+            <div class="result-icon">
+                ✓
+            </div>
+
+            <h1>
+                Session Completed
+            </h1>
+
+            <p id="resultUser">
+                Great work!
+            </p>
+
+        </div>
+
+
+        <div class="score-circle">
+
+            <strong id="scoreNumber">
+                0%
+            </strong>
+
+            <span>
+                Performance
+            </span>
+
+        </div>
+
+
+        <div class="result-grid">
+
+            <div>
+
+                <small>
+                    Total Sessions
+                </small>
+
+                <strong id="resultSessions">
+                    1
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    Average Score
+                </small>
+
+                <strong id="resultAverage">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    Change
+                </small>
+
+                <strong id="resultChange">
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div id="feedbackCard"
+             class="feedback-card">
+        </div>
+
+
+        <button class="primary-btn"
+                onclick="goHome()">
+
+            Back to Home
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= PERFORMANCE ================= -->
+
+    <section id="performanceScreen"
+             class="screen hidden">
+
+        <div class="top-bar">
+
+            <button class="back-btn"
+                    onclick="goHome()">
+
+                ←
+
+            </button>
+
+            <h2>
+                Performance
+            </h2>
+
+        </div>
+
+
+        <!-- MAIN SCORE -->
+
+        <div class="performance-main">
+
+            <div class="big-score"
+                 id="averageScore">
+
+                0%
+
+            </div>
+
+            <p>
+                Average Performance
+            </p>
+
+        </div>
+
+
+        <!-- BASIC STATS -->
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <span>🎯</span>
+
+                <small>
+                    SESSIONS
+                </small>
+
+                <strong id="totalSessions">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>🏆</span>
+
+                <small>
+                    BEST
+                </small>
+
+                <strong id="bestScore">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>📈</span>
+
+                <small>
+                    LAST
+                </small>
+
+                <strong id="lastScore">
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- PERFORMANCE STATUS -->
+
+        <div id="performanceMessage"
+             class="adaptive-card">
+
+            Complete your first session
+            to start tracking performance.
+
+        </div>
+
+
+        <!-- PERFORMANCE LEVEL -->
+
+        <div class="adaptive-card">
+
+            <h3>
+                📊 Performance Level
+            </h3>
+
+
+            <div style="
+                margin-top:15px;
+                height:12px;
+                background:#e8ebf2;
+                border-radius:20px;
+                overflow:hidden;
+            ">
+
+                <div id="performanceBar"
+                     style="
+                        width:0%;
+                        height:100%;
+                        transition:width 0.5s;
+                        background:linear-gradient(
+                            90deg,
+                            #6c5ce7,
+                            #00cec9
+                        );
+                     ">
+                </div>
+
+            </div>
+
+
+            <p id="performanceLevel"
+               style="margin-top:12px;">
+
+                No performance data yet.
+
+            </p>
+
+        </div>
+
+
+        <!-- RECENT PERFORMANCE -->
+
+        <div class="adaptive-card">
+
+            <h3>
+                🕒 Recent Sessions
+            </h3>
+
+            <div id="recentPerformance"
+                 style="margin-top:15px;">
+
+                No sessions yet.
+
+            </div>
+
+        </div>
+
+
+        <!-- SMART INSIGHT -->
+
+        <div class="adaptive-card">
+
+            <h3>
+                🧠 Life Compiler Insight
+            </h3>
+
+            <p id="smartInsight"
+               style="margin-top:10px;">
+
+                Complete a session to receive
+                personalized advice.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= HISTORY ================= -->
+
+    <section id="historyScreen"
+             class="screen hidden">
+
+        <div class="top-bar">
+
+            <button class="back-btn"
+                    onclick="goHome()">
+
+                ←
+
+            </button>
+
+            <h2>
+                History
+            </h2>
+
+        </div>
+
+
+        <div id="historyList"
+             class="history-list">
+        </div>
+
+
+        <button class="danger-btn"
+                onclick="resetHistory()">
+
+            Reset Performance History
+
+        </button>
+
+    </section>
+
+
+</div>
+
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
+
+
+<!-- ================= SERVICE WORKER ================= -->
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker
+            .register("./sw.js")
+            .then(() => {
+
+                console.log(
+                    "Life Compiler PWA ready"
+                );
+
+            })
+            .catch(error => {
+
+                console.error(
+                    "Service Worker error:",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
